@@ -8,10 +8,10 @@ import { IERC721Metadata } from "@openzeppelin/contracts/token/ERC721/extensions
 // NFTee is  ERC721 signifies that the contract we are creating imports ERC721 and follows ERC721 contract from openzeppelin
 contract NFTCreator is ERC721URIStorage {
 
-    uint public _tokenIds=0;
+    uint private _tokenIds=0;
     
 
-    mapping(uint=>Item) _items; // 0 => Item
+    mapping(uint=>Item) private _items; // 0 => Item
 
     struct Item{ 
         address owner;
@@ -38,6 +38,9 @@ contract NFTCreator is ERC721URIStorage {
         _tokenIds++;
     }
 
+    function getItem(uint _tokenId) public view returns (Item memory item){
+        return _items[_tokenId];
+    }
     function getItemOwner(uint _tokenId) public view returns(address){
         return _items[_tokenId].owner;
     }
